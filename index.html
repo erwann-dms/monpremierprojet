@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pentest 2</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script type="text/javascript" src="dynamic.js" defer></script> 
+</head>
+<body> 
+    <nav>
+       
+    </nav>
+    <header>
+        <h1>Les 10 intrusions les plus connues en pentest </h1>
+    </header>
+    
+    <div class="progress_container">
+        <div class="progress_bar"></div>
+    </div>
+    
+        <section>
+            <nav class="sidebar">
+                <ul class="dropdownmenu">
+                    <p class="SOMMAIRE">Sommaire</p>
+                    <li><a href="#p">Protocoles</a></li>
+                    <li><a href="#f">Requêtes</a></li>
+                    <li><a href="#m">CORS</a></li>
+                    <li><a href="#r">Référence</a></li>
+                    <li><a href="#v">Vulnérabilité</a></li>
+                    <li><a href="#R">Redirection</a></li>
+                    <li><a href="#V">JWT</a></li>
+                    <li><a href="#c">Composants</a></li>
+                    <li><a href="#s">Stockage</a></li>
+                    <li><a href="#i">SQL</a></li>
+                </ul>
+            </nav>
+            <h2 id="p"> Protocoles de nommage hérités </h2>
+            <p>Les vulérabilités XSS permettent aux attaquants d'injecter du codes malvaillants dans les page web. <br />
+                Le code executer par la victimes permet aux attaquents de contourner les contrôles d'accès et usurper l'identité des utilisateur.
+            Les failles XSS les plus coourantes sont: <br />
+            .  XSS réfléchi : lorsqu'un utilisateur clique sur une URL malveillante créée par un attaquant, le code JavaScript contenu dans l'URL est exécuté. Comme le code n'est pas stocké sur le serveur,<br />
+                l'attaquant doit encourager les gens à cliquer sur un lien, en utilisant, par exemple, l'ingénierie sociale.<br />
+            . XSS stocké : Le code malveillant va être injecté dans une base de données de l'application. Ce code peut être du JavaScript, HTML ou tout autre langage qui peut être interprété par le naviguateur de l'utilisasteur.<br />
+            L'Exploitations : Dans le cas d'une attaque XSS stockée, une personne malveillante peut insérer un code malveillant dans un commentaire ou un champ de formulaire,<br />
+                qui sera exécuté lorsqu'un autre utilisateur consultera le contenu.<br />
+                Une XSS réfléchie se produit lorsqu'un attaquant crée une URL contenant un code malveillant et trompe un utilisateur en l'incitant à cliquer dessus.<br />
+            Pour ce protéger de cette failles il faut: 
+                Filtrage strict des entrées: Tous les données entrées par l'utilisateur doivent être soigneusement filtrées et échappées avant d'être stockées dans la base de données.<br />
+                Utilisation d'un WAF (Web Application Firewall): Un WAF peut aider à détecter et à bloquer les attaques XSS.<br />
+                Mise à jour régulière des CMS et des applications: Les vulnérabilités XSS sont souvent corrigées dans les mises à jour de logiciels.<br />
+                Formation des développeurs: Il est essentiel de former les développeurs aux bonnes pratiques de sécurité pour prévenir les vulnérabilités XSS.<br />
+                Tests de sécurité réguliers: Des tests de pénétration réguliers permettent d'identifier les vulnérabilités avant qu'elles ne soient exploitées par des attaquants.</p>
+            <h2 id="f">  Falsification des Requêtes Intersites (CSRF) </h2>
+            <p>Il s'agie d'une attaque qui va permet à l'attaquand de d'incité l'utilisateur athentifié à executer, à sont insu, des action sur une application web. <br />
+                telles que la réalisation de transactions ou la modification d'informations de leur compte. Cette attaque exploite l'incapacité de l'application web à vérifier l'origine de la requête et la session de l'utilisateur.<br />
+            Comment fonctionne cette attaque ?: <br />
+            .    Piégeage de l'utilistateur: L'attaquant crée un lien malveillant ou un formulaire caché, trés souvent mit dans une page web inoffensive.<br /> 
+            .    Executions de la requête: lorsque la victime clique sur ce lien ou visite la pagepiégée, son navigateur envoie automatiquement une requête HTTP à l'application web cible. <br />
+            Cette requête est conçue pour exécuter une action spécifique, comme la suppression d'un compte, le transfert de fonds ou la modification de paramètres.<br />
+            .    Exécution de l'action: Si l'application ne vérifie pas l'origine de la requête et s'appuie uniquement sur la session de l'utilisateur pour autoriser l'action,<br /> 
+            celle-ci sera exécutée, sans que la victime n'en ait conscience. <br />
+            Comment ce protéger: <br />
+            Vérfications de l'origine de la requête: S'assurer que la requête provient bien de votre domaine.<br />
+            HTTPOnly cookies: Empêcher le JavaScript client d'accéder aux cookies de session.<br />
+            Méthode POST: Privilégier la méthode POST pour les actions sensibles.<br /> 
+            Mise à jour régulière des applications: Corriger les vulnérabilités connues.</p>
+            <h2 id="m">Mauvaise configuration CORS</h2>
+            <p>Par défaut, les applications ne peuvent pas communiquer en JavaScript avec des applications provenant d'autres domaines. Le partage de ressource cross-origin (CORS - Cross-Origin Resource Sharing) peut être utilisé pour modifier ce comportement.<br />
+                Une mauvaise configuration peut rendre l'application vulnérable à un accès non autorisé depuis d'autres domaines.<br />
+            Comment est elle exploitée ?: <br />
+                  Les erreurs de configuration les plus fréquentes sont la mauvaise configuration de « Access-Control-Allow-Origin », qui, si elle est trop permissive,<br />
+                utilise un joker (*) ou la valeur null, permet d'effectuer des requêtes à partir de domaines non contrôlés. Si, en plus, l'application utilise « Access-Control-Allow-Credentials : True »,<br />
+                un attaquant pourrait effectuer des requêtes à partir des sessions des utilisateurs, et ainsi voler leurs comptes, car contrairement aux attaques CSRF, l'attaquant peut lire les résultats de ces requêtes.
+            Comment ce protéger ?:<br />
+                 Évitez d'utiliser des joker ou la valeur null dans l'en-tête Access-Control-Allow-Origin. Limitez l’entête CORS aux domaines de confiance</p>
+            <h2 id="r">Référence Directe d'Objet non sécurisé</h2>
+            <p>Il s'agie d'une vulnérabilité qui est courante dans les appliction web qui survient lorsque l'application utilise une entrée fournie directement par l'utilisateur pour accéder à un objet.<br />
+            (un fichier, une entrée de base de données,ect).Les attaquents pouvent manipuler des référence internes pour accéder à des données non autorisées.
+                Pour faire simple l'attaquand peut manipuler l'identifiant de l'objet dans l'URL ou dans un formulaire pour accéder à des données. <br />
+            Comment elle fonctionne ?:<br />
+               prenons un exemple simple : un site e-commerce. Chaque produit est identifié par un ID unique dans l'URL. Un attaquant pourrait simplement incrémenter cet ID dans l'URL,<br /> 
+                pour accéder à des produits qui ne lui sont pas destinés, voire à des données internes de l'application.<br />
+                URL normale : https://monsite.com/produit/123<br />
+                URL exploitée : https://monsite.com/produit/124 </p></p>
+            <h2 id="v">Vulnérabilité sur le téléchargement d'un fichier</h2>
+            <p> Permettre aux utilisateurs de téléverser des fichiers peut présenter des risques pour la sécurité si ce n’est pas correctement géré. <br/>
+               magine un site web qui te permet de télécharger des photos. Cette fonctionnalité, bien pratique, peut devenir un véritable point faible si elle n'est pas correctement sécurisée. <br />
+                C'est ce qu'on appelle une vulnérabilité de téléchargement de fichiers. <br />
+            Commant çe la foctionne <br />
+                Les attaquants peuvent exploiter cette vulnérabilité en téléchargeant des fichiers qui ne sont pas de simples images, mais des fichiers malveillants déguisés. Ces fichiers peuvent contenir :<br />
+                . Des virus ou des logiciels malveillants qui vont infecter ton ordinateur ou le serveur du site.<br />
+                . Du code qui permet de prendre le contrôle du serveur et d'accéder à toutes les données qui s'y trouvent.<br />
+                . Des scripts qui peuvent être exécutés sur le site web pour voler des informations ou défigurer les pages.<br/>
+            Comment ce protéger? :
+                . Limiter les types de fichiers autorisés: Ne permettre le téléchargement que de certains formats de fichiers (images, PDF, etc.) et vérifier leur extension.<br />
+                . Scanner les fichiers à la recherche de virus: Utiliser un antivirus pour analyser les fichiers téléchargés avant de les stocker.<br />
+                .  Limiter la taille des fichiers: Fixer une taille maximale pour les fichiers téléchargés afin d'éviter les attaques par surcharge.<br />
+                . Stocker les fichiers dans un répertoire sécurisé: Isoler les fichiers téléchargés des autres fichiers du serveur pour limiter les dommages en cas d'attaque.<br />
+                . Utiliser des noms de fichiers aléatoires: Éviter d'utiliser les noms de fichiers originaux pour rendre plus difficile l'exploitation de certaines vulnérabilités.</p>
+            <h2 id="R">Redirection ouverte</h2>
+            <p>Il s'agie d'une attaque que quand t'on sera sur un site que si on cliques sur un lien. Au lieu d'être redirigé vers la page prévue, on ce retrouves sur un site complètement différent, peut-être même dangereux. <br />
+                C'est ce qui peut se produire lorsqu'un site web souffre d'une vulnérabilité de redirection ouverte.<br />
+            Comment cela fonctionne ?<br /> 
+                L'utilisateur entre une URL : Le site web propose un champ où tu peux entrer une URL.<br /> 
+                Le site redirige : Quand on cliques sur un bouton, le site te redirige directement vers l'URL que on as saisie, sans vérification. <br /> 
+                L'attaquant en profite : Un hacker malintentionné peut te fournir une URL malveillante, et lorsque on à cliquer dessus, tu seras redirigé vers un site frauduleux.<br />
+            Comment ce protéger: <br />
+                Validation des URL: Le site web doit vérifier que l'URL saisie est bien formatée et qu'elle pointe vers un domaine autorisé.<br />
+               Filtrage des URL: Certaines chaînes de caractères peuvent être interdites dans les URL pour empêcher les attaques.<br> 
+            </p>
+            <h2 id="V">Vulnérabilité des JWT</h2>
+            <p>Un Jeton Web JSON (JWT) est un format standard ouvert utilisé pour la transmission d'informations de manière sécurisée entre différentes parties d'une application. <br /> 
+                Il est souvent utilisé pour l'authentification, mais peut également servir à stocker des données utilisateur. Mais une mauvaise implémentation peut entraîner des risque de sécurité. <br />
+            Les risque de un attaques: <br />
+                Vol du JWT: Si un JWT est intercepté, un attaquant pourrait usurper l'identité de l'utilisateur.<br/>
+                Falsification du JWT: Un attaquant pourrait modifier les informations contenues dans un JWT pour obtenir des privilèges supplémentaires.<br /> 
+                Expiration du JWT: Si la durée de vie d'un JWT est trop longue, cela augmente le risque d'être compromis.<br />
+                Stockage non sécurisé: Stocker un JWT dans le localStorage ou le sessionStorage du navigateur peut exposer l'information à des attaques XSS.<br /> 
+                Réutilisation de JWT: Réutiliser un JWT peut permettre à un attaquant de se connecter en tant qu'un autre utilisateur.<br /> 
+            Comment sécuriser le JWT ? <br/>
+                Choisir un algorithme de signature fort: Utiliser des algorithmes de signature cryptographiques robustes <br /> 
+                Limiter la durée de vie des JWT: Fixer une durée de vie courte pour les JWT afin de minimiser les risques en cas de compromission.<br />
+                Stocker les JWT de manière sécurisée: Éviter de stocker les JWT dans le localStorage ou le sessionStorage. Privilégier le stockage côté serveur. <br />
+                Protéger la clé secrète: La clé secrète utilisée pour signer les JWT doit être strictement confidentielle.<br />
+                Vérifier les revendications: Toujours vérifier les revendications contenues dans un JWT avant d'accorder des accès.</p>
+            <h2 id="c">Composants présentant des vulnérabilités connues</h2>
+            <p>Un composant vulnérable, dans le contexte des applications web, désigne généralement une bibliothèque, un framework ou un module tiers intégré à une application.<br />
+                Ce composant contient une faille de sécurité connue qui peut être exploitée par des attaquants.<br /> 
+            Pourquoi elle est dangereux ? <br /> 
+                Porte d'entrée pour les attaquants: Ces vulnérabilités offrent aux attaquants une entrée directe dans l'application, leur permettant d'exécuter du code arbitraire, <br /> 
+                d'accéder à des données sensibles ou de prendre le contrôle du système.<br />
+                Amplification des attaques: Une vulnérabilité dans un composant largement utilisé peut affecter un grand nombre d'applications, augmentant ainsi la surface d'attaque globale.<br />
+                Difficulté de mise à jour: Il peut être difficile de mettre à jour tous les composants d'une application, surtout si certaines dépendances sont obsolètes ou si l'application est complexe.<br />
+            Comment ce protégée: <br/>
+                Choisir des composants fiables: Privilégier les composants maintenus par une communauté active et qui font l'objet de nombreux audits de sécurité.<br />
+                Mettre à jour régulièrement: Mettre en place un processus de mise à jour automatique ou semi-automatique des composants.<br />
+                Utiliser des outils de gestion des dépendances: Ces outils permettent de gérer les différentes versions des composants utilisés dans un projet et de détecter les vulnérabilités.<br />
+                Effectuer des analyses de vulnérabilité: Utiliser des outils de scan pour détecter les vulnérabilités dans les applications et les composants.<br />
+                Isoler les composants: Si possible, isoler les composants les plus sensibles dans des conteneurs ou des environnements virtuels.<br />
+                Former les développeurs: Sensibiliser les développeurs aux risques liés aux composants vulnérables et leur apprendre les bonnes pratiques. <br />
+            </p>
+            <h2 id="s">Stockage non sécurisé des jetons de session</h2>
+            <p>Un jeton de session est un identifiant unique, généralement un long texte aléatoire, qui est attribué à un utilisateur <br /> 
+                lorsqu'il se connecte à un service en ligne.<br /> 
+            Ce jeton est ensuite envoyé avec chaque requête ultérieure et permet au serveur d'identifier l'utilisateur et de maintenir sa session active.<br /> 
+                un attaquant peut détourner la session, usurper l'identité de l'utilisateur et accéder à des informations sensibles.<br /> 
+            Quelle sont les risque ?<br />
+                . Vol de session: Un attaquant qui parvient à intercepter un jeton de session valide peut se faire passer pour <br /> 
+                l'utilisateur légitime et accéder à toutes ses données et fonctionnalités.<br /> 
+                . Fixation de session: Un attaquant peut forcer un utilisateur à utiliser un jeton de session qu'il contrôle, <br /> 
+                lui permettant ainsi de prendre le contrôle du compte de l'utilisateur.<br /> 
+            Comment stooker en sécuritée le jalon ?<br>
+                . Chiffrement: Les jetons de session doivent toujours être chiffrés avant d'être stockés.
+                . Durée de vie limitée: Les jetons doivent avoir une durée de vie limitée et être automatiquement<br /> 
+                invalidés après un certain temps d'inactivité.
+                . Stockage sécurisé: Les jetons ne doivent jamais être stockés en clair dans des fichiers de configuration <br /> 
+                ou des bases de données accessibles publiquement <br /> 
+                . HTTPOnly: Les cookies contenant les jetons de session doivent être marqués comme "HttpOnly" pour empêcher leur accès <br /> 
+                par des scripts côté client.
+                .Secure: Les cookies doivent être transmis uniquement via des connexions HTTPS pour éviter les interceptions.<br />
+                CSRF protection: Des mesures de protection contre les attaques CSRF doivent être mises en place pour empêcher la falsification de requêtes inter-sites.<br /> 
+            </p>
+            <h2 id="i">Injection SQL</h2>
+            <p>Il s'agie de une technique d'attaque informatique qui exploite une vulnérabilité dans la manière dont les applications web gèrent les entrées utilisateur.<br /> 
+                cette attaque permettent aux attaquants d'exécuter des requêtes malveillantes en injectant du code SQL dans les champs d'entrée.<br /> 
+               Quelle sont les risque d'une attaque SQL ?<br /> 
+                   . Vol de données: L'attaquant peut accéder à des données sensibles stockées dans la base de données, telles que des mots de passe,<br /> 
+                   des numéros de carte de crédit ou des informations personnelles.<br /> 
+                   . Modification de données: L'attaquant peut modifier ou supprimer des données de la base de données,<br /> 
+                   ce qui peut avoir des conséquences désastreuses pour l'entreprise.
+                   . Dénis de service: L'attaquant peut lancer des attaques par déni de service en surchargeant la base de données avec des requêtes malveillantes.<br /> 
+                   . Privilège d'escalade: Dans certains cas, l'attaquant peut obtenir des privilèges élevés sur le serveur de base de données et compromettre <br />
+                   l'ensemble du système.<br /> 
+               Comment ce protèger ? <br /> 
+                   . Paramétrisation des requêtes: Utilisez des requêtes préparées ou des paramètres pour éviter la concaténation de chaînes de caractères.<br /> 
+                   . Échappement des caractères spéciaux: Filtrez et échappez tous les caractères spéciaux qui pourraient être utilisés pour manipuler la syntaxe SQL.<br /> 
+                   . Validation des entrées: Vérifiez toujours la validité et le type des données fournies par l'utilisateur.<br /> 
+                   . Utilisation d'un ORM: Un Object-Relational Mapper (ORM) peut aider à prévenir les injections SQL en générant automatiquement des requêtes sécurisées.<br /> 
+                   . Mise à jour régulière des logiciels: Maintenez vos applications et votre base de données à jour avec les derniers correctifs de sécurité.
+               </p>
+        </section>
+    </body>
+    <footer>
+        <p>&copy; 2024 pentest</p>
+    </footer>
+    
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                document.querySelector('nav').classList.add('scrolled');
+            } else {
+                document.querySelector('nav').classList.remove('scrolled');
+            }
+        }
+    </script>
+</body>
+</html>
